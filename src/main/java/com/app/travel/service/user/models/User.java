@@ -17,7 +17,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Getter
     @Setter
-    private String id;
+    private Integer id;
 
     @Column(name = "first_name")
     @Getter
@@ -26,11 +26,11 @@ public class User {
 
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "agency_id", nullable = false)
+    @JoinColumn(nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @Getter
     @Setter
-    private  String agencyRef;
+    private Agency agencyRef;
 
     @Column(name = "last_name")
     @Getter

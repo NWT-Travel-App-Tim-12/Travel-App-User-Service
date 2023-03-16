@@ -15,12 +15,12 @@ import java.util.UUID;
 public class Agency {
 
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @GeneratedValue (strategy = GenerationType.UUID)
     @Getter
     @Setter
     private UUID id;
 
-    @OneToOne(optional = false, cascade = CascadeType.REMOVE)
+    @OneToOne(optional = false, fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @Getter
     @Setter
     private User administratorRef;
@@ -35,7 +35,6 @@ public class Agency {
     @Setter
     private String address;
 
-    @Column(name = "agency-short-name")
     @Getter
     @Setter
     private String agencyShortName;
