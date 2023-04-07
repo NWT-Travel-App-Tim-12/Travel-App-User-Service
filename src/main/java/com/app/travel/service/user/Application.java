@@ -10,7 +10,7 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 @OpenAPIDefinition
 @EnableEurekaClient
 public class Application {
-
+ // comm
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
 	}
