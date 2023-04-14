@@ -21,4 +21,14 @@ public class UserController {
         return new ResponseEntity<>(userService.addUser(user), HttpStatus.OK);
     }
 
+
+    @GetMapping(path = "/{id}")
+    public @ResponseBody ResponseEntity<User> getUser(@PathVariable Integer id){
+        return new ResponseEntity<>(userService.getUser(id), HttpStatus.OK);
+    }
+
+
+
+
+
 }
