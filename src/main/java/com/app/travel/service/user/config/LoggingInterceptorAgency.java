@@ -19,7 +19,7 @@ public class LoggingInterceptorAgency implements HandlerInterceptor {
             HttpServletResponse response,
             Object handler,
             @Nullable Exception ex) throws Exception {
-        log.info(response.getStatus()+" " + " - User microservice - " + "User resource - " + request.getMethod()); // log both good and bad status codes
+        log.info(response.getStatus()+" " + " - User microservice - " + "Agency resource - " + request.getMethod()); // log both good and bad status codes
     }
 
 
