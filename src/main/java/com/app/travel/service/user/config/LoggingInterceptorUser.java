@@ -9,19 +9,9 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 
-public class LoggingInterceptor implements HandlerInterceptor {
+public class LoggingInterceptorUser implements HandlerInterceptor {
 
-    private static Logger log = LoggerFactory.getLogger(LoggingInterceptor.class);
-
-
-    @Override
-    public void postHandle(
-            HttpServletRequest request,
-            HttpServletResponse response,
-            Object handler,
-            ModelAndView modelAndView) throws Exception {
-        log.info(response.getStatus()+"");  // log ok status codes
-    }
+    private static Logger log = LoggerFactory.getLogger(LoggingInterceptorUser.class);
 
     @Override
     public void afterCompletion(
@@ -29,7 +19,7 @@ public class LoggingInterceptor implements HandlerInterceptor {
             HttpServletResponse response,
             Object handler,
             @Nullable Exception ex) throws Exception {
-        log.info(response.getStatus()+""); // log bad status codes
+        log.info(response.getStatus()+" " + " - User microservice - " + "User resource - " + request.getMethod()); // log both good and bad status codes
     }
 
 
