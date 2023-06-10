@@ -22,7 +22,8 @@ class LoadDatabase {
                 "begovac",
                 "Selima ef Merdanovica",
                 "amar@amar.com",
-                null
+                null,
+                "dsasds"
         ));
 
         return args -> {

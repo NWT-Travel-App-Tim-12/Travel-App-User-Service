@@ -30,7 +30,7 @@ public class LoggingInterceptorAgency implements HandlerInterceptor {
             @Nullable Exception ex) throws Exception {
         log.info(new Timestamp((new Date()).getTime()).toString() + " " +  response.getStatus()+" " + " - User microservice - " + "Agency resource - " + request.getMethod()); // log both good and bad status codes
 
-        ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 8080)
+        ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 8087)
                 .usePlaintext()
                 .build();
 

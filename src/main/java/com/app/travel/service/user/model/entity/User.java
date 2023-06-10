@@ -44,4 +44,7 @@ public class User {
     @OneToOne(mappedBy = "administrator")
     private Agency administratorAgency;
 
+
+
+    private String password;
 }
