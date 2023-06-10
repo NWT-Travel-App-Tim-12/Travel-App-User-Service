@@ -27,4 +27,10 @@ public class UserService {
         if(model.isPresent()) return model.get();
         throw new ObjectDoesNotExistInDb("No data with id " + id + "!", model.getClass().getName());
     }
+
+    public User getUser(String email) {
+        var model = userRepository.findByEmail(email);
+        if(model.isPresent()) return model.get();
+        throw new ObjectDoesNotExistInDb("No data with email " + email + "!", model.getClass().getName());
+    }
 }
