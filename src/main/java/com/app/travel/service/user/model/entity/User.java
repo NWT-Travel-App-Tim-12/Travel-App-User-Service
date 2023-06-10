@@ -1,5 +1,7 @@
 package com.app.travel.service.user.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -21,7 +23,6 @@ public class User {
     @ManyToOne
     @JoinColumn(name = "agency_id")
     private Agency agencyRef;
-
 
     @Column(name = "first_name")
     @NotBlank(message = "First name can't be blank!")
@@ -45,6 +46,20 @@ public class User {
     private Agency administratorAgency;
 
 
-
+    @NotBlank(message="Password can't be blank")
+    @JsonIgnore
     private String password;
+
+    @JsonIgnore
+    public String getPassword() {
+        return password;
+    }
+
+    @JsonProperty
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+
+
 }

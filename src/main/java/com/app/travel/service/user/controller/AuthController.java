@@ -5,7 +5,6 @@ import com.app.travel.service.user.model.dto.AuthRequest;
 import com.app.travel.service.user.model.entity.User;
 import com.app.travel.service.user.service.AuthService;
 import com.app.travel.service.user.service.UserService;
-import io.grpc.StatusRuntimeException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,7 +19,7 @@ import org.springframework.web.server.ResponseStatusException;
 @RequestMapping("/auth")
 public class AuthController {
     @Autowired
-    private AuthService service;
+    private AuthService authService;
 
     @Autowired
     private UserService userService;
@@ -30,14 +29,14 @@ public class AuthController {
 
     @PostMapping("/register")
     public @ResponseBody ResponseEntity<User> addUser(@RequestBody @Valid User user) {
-        return new ResponseEntity<>(userService.addUser(user), HttpStatus.OK);
+        return new ResponseEntity<>(authService.addUser(user), HttpStatus.OK);
     }
 
     @PostMapping("/login")
     public String getToken(@RequestBody AuthRequest authRequest) {
-        Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
+        Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getEmail(), authRequest.getPassword()));
         if (authenticate.isAuthenticated()) {
-            return service.generateToken(authRequest.getUsername());
+            return authService.generateToken(authRequest.getEmail());
         } else {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "unauthenticated", null);
         }
@@ -45,7 +44,8 @@ public class AuthController {
 
     @GetMapping("/validate")
     public String validateToken(@RequestParam("token") String token) {
-        service.validateToken(token);
+        System.out.println("pozvan validate Token");
+        authService.validateToken(token);
         return "Token is valid";
     }
 }
