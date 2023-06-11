@@ -8,11 +8,9 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping(path = "/agencies")
@@ -21,7 +19,8 @@ public class AgencyController {
     private AgencyService agencyService;
 //bump
     @PostMapping(path = "")
-    public @ResponseBody ResponseEntity<Agency> addAgency(@RequestBody @Valid Agency agency) {
+    @PreAuthorize("#header=='ADMIN'")
+    public @ResponseBody ResponseEntity<Agency> addAgency(@RequestBody @Valid Agency agency, @RequestHeader("role") String header ) {
         return new ResponseEntity<>(agencyService.addAgency(agency), HttpStatus.OK);
     }
 }
