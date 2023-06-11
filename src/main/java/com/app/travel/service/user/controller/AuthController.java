@@ -33,7 +33,7 @@ public class AuthController {
     @PostMapping("/register")
     public @ResponseBody ResponseEntity<AuthResponse> addUser(@RequestBody @Valid User user) {
         User newUser = authService.addUser(user);
-        String token = authService.generateToken(newUser.getEmail());
+        String token = authService.generateToken(newUser.getEmail(), newUser.getRole());
         return new ResponseEntity<>(new AuthResponse(token, user), HttpStatus.OK);
     }
 
@@ -41,7 +41,8 @@ public class AuthController {
     public @ResponseBody ResponseEntity<AuthResponse> getToken(@RequestBody AuthRequest authRequest) {
         Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getEmail(), authRequest.getPassword()));
         if (authenticate.isAuthenticated()) {
-            return new ResponseEntity<>(new AuthResponse(authService.generateToken(authRequest.getEmail()), userService.getUser(authRequest.getEmail())), HttpStatus.OK);
+            User user = userService.getUser(authRequest.getEmail());
+            return new ResponseEntity<>(new AuthResponse(authService.generateToken(authRequest.getEmail(), user.getRole()), user), HttpStatus.OK);
         } else {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "unauthenticated", null);
         }

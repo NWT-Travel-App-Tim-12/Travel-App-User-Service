@@ -1,5 +1,6 @@
 package com.app.travel.service.user.service;
 import com.app.travel.service.user.exceptions.UserAlreadyExistsException;
+import com.app.travel.service.user.model.Role;
 import com.app.travel.service.user.model.entity.User;
 import com.app.travel.service.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +27,8 @@ public class AuthService {
         return userRepository.save(credential);
     }
 
-    public String generateToken(String email) {
-        return jwtService.generateToken(email);
+    public String generateToken(String email, Role role) {
+        return jwtService.generateToken(email, role);
     }
 
     public void validateToken(String token) {

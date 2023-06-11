@@ -1,5 +1,6 @@
 package com.app.travel.service.user;
 
+import com.app.travel.service.user.model.Role;
 import com.app.travel.service.user.model.entity.User;
 import com.app.travel.service.user.repository.UserRepository;
 import org.slf4j.Logger;
@@ -17,6 +18,7 @@ class LoadDatabase {
     CommandLineRunner initDatabase(UserRepository repository) {
         repository.save(new User(
                 1,
+                Role.USER,
                 null,
                 "amar",
                 "begovac",
