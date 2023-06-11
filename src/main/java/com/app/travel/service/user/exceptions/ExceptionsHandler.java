@@ -52,4 +52,25 @@ public class ExceptionsHandler extends ResponseEntityExceptionHandler {
                 )
                 .body(responseBody);
     }
+
+
+    @ExceptionHandler({
+            UserAlreadyExistsException.class
+    })
+    public ResponseEntity<Object> userAlreadyExists(UserAlreadyExistsException exception){
+        Map<String, Object> responseBody = new HashMap<>();
+        var statusCode = exception.getCode() != null ? exception.getCode() : HttpStatus.BAD_REQUEST;
+        responseBody.put("timestamp", new Date());
+        responseBody.put("status", statusCode.value());
+        var errors = new HashMap<String, String>();
+        errors.put("Error", exception.getMessage());
+        responseBody.put("errors", errors);
+        return ResponseEntity
+                .status(
+                        statusCode
+                )
+                .body(responseBody);
+    }
+
+
 }
